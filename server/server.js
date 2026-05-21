@@ -7,7 +7,7 @@ const server = http.createServer((req, res) => {
         const user = {
             id: 1,
             name: "Mauricio",
-            email: "[EMAIL_ADDRESS]"
+            email: "mauricio.ro1@hotmail.com"
         };
         res.end(JSON.stringify(user));
     }
