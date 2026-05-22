@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import './App.css'
+import { router } from './router/index.jsx'
 
 function App() {
 
@@ -13,9 +14,7 @@ function App() {
 
   }, []);
 
-  return (
-    <h1>React conectado con Node.js</h1>
-  )
+  return router();
 }
 
 export default App;
