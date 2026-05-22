@@ -1,14 +1,13 @@
-import { BrowserRouter, Routes, Route } from "react-router";
-import Login from "../pages/login";
-import Home from "../pages/home";
+import { Routes, Route } from "react-router"; // Quitamos BrowserRouter de aquí
+import Login from "../pages/login/index.jsx";
+import Home from "../pages/home/home.jsx";
 
-const router = () => {
+// Lo declaramos con mayúscula inicial como un componente de React real
+export const AppRoutes = () => {
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/home" element={<Home />} />
-            </Routes>
-        </BrowserRouter>
+        <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/home" element={<Home />} />
+        </Routes>
     );
 };

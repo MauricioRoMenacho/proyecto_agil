@@ -1,20 +1,22 @@
-import { useEffect } from 'react'
-import './App.css'
-import { router } from './router/index.jsx'
+import { useEffect } from 'react';
+import { BrowserRouter } from 'react-router'; // Importamos el BrowserRouter aquí
+import './App.css';
+import { AppRoutes } from './router/index.jsx'; // Importamos el componente de rutas
 
 function App() {
-
   useEffect(() => {
-
     fetch("http://localhost:3000/user")
       .then(res => res.json())
       .then(data => {
         console.log(data);
       });
-
   }, []);
 
-  return router();
+  return (
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
+  );
 }
 
 export default App;
