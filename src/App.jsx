@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { BrowserRouter } from 'react-router'; // Importamos el BrowserRouter aquí
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 import { AppRoutes } from './router/index.jsx'; // Importamos el componente de rutas
 
