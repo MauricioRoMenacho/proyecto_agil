@@ -78,7 +78,12 @@ const Layout = () => {
                     </div>
 
 
-                    <NavLink to="/login" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+                    <NavLink to="/login" className={({ isActive }) => 
+                        isActive 
+                        ? "nav-link logout-link active" 
+                        :  "nav-link logout-link"
+                        }
+                    >
                         Cerrar Sesión
                     </NavLink>
                 </nav>
