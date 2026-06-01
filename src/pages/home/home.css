@@ -5,20 +5,20 @@
   flex-direction: column;
   gap: 30px;
   width: 100%;
+  color: black;
 }
 
 .home-header h1 {
   font-size: 32px;
   font-weight: 600;
   margin: 0 0 8px 0;
-  color: var(--text-h);
+  color: black;
   letter-spacing: -0.5px;
+  text-align: center;
 }
 
 .home-header p {
-  color: var(--text);
-  font-size: 16px;
-  margin: 0;
+  color: inherit;
 }
 
 .home-dashboard {

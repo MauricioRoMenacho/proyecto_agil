@@ -8,6 +8,7 @@ const Layout = () => {
 
     const [reportesOpen, setReportesOpen] = useState(location.pathname.startsWith('/reportes'));
     const [almacenesOpen, setAlmacenesOpen] = useState(location.pathname.startsWith('/almacenes'));
+    const [movimientosOpen, setMovimientosOpen] = useState(location.pathname.startsWith('/movimientos'));
     return (
         <div className="layout-container">
             <aside className="layout-sidebar">
@@ -56,6 +57,24 @@ const Layout = () => {
                                 Categorías
                             </NavLink>
                         </div>
+                    </div>
+
+                    <div className="submenu-container">
+                        <button
+                            onClick={()=> setMovimientosOpen(!movimientosOpen)}
+                            className={`nav-link submenu-trigger ${location.pathname.startsWith('/movimientos') ? 'active' : ''}`}
+                        >
+                            Movimientos
+                            <span className={`arrow-icon ${movimientosOpen ? 'open' : ''}`}>&gt;</span>    
+                        </button>
+                        <div className={`submenu-items ${movimientosOpen ? 'show' : ''}`}>
+                            <NavLink to="/movimientos/entradas" className={({ isActive }) => isActive ? "sub-nav-link active" : "sub-nav-link"}>
+                                Entradas
+                            </NavLink>
+                            <NavLink to="/movimientos/salidas" className={({ isActive }) => isActive ? "sub-nav-link active" : "sub-nav-link"}>
+                                Salidas
+                            </NavLink>
+                        </div>    
                     </div>
 
 

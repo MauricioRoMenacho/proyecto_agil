@@ -18,6 +18,8 @@ export const AppRoutes = () => {
                 <Route path="reportes/historial" element={<div style={{ padding: '20px' }}><h2>Historial de Cambios</h2><p>Contenido de Historial de Cambios en desarrollo.</p></div>} />
                 <Route path="almacenes/stock" element={<div style={{ padding: '20px' }}><h2>Stock de Activos</h2><p>Contenido de Stock de Activos en desarrollo.</p></div>} />
                 <Route path="almacenes/categorias" element={<div style={{ padding: '20px' }}><h2>Categorías</h2><p>Contenido de Categorías en desarrollo.</p></div>} />
+                <Route path="movimientos/entradas" element={<div style={{ padding: '20px'}}><h2>Entradas</h2>Contenido de entradas en desarrollo</div>}/>
+                <Route path="movimientos/salidas" element={<div style={{ padding: '20px' }}><h2>Salidas</h2><p>Contenido de Salidas en desarrollo.</p></div>} />
             </Route>
 
             {/* Redirección por defecto */}
