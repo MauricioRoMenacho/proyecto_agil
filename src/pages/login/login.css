@@ -4,8 +4,8 @@
   align-items: center;
   flex: 1;
   padding: 40px 20px;
-  min-height: calc(100svh - 100px);
-  /* Adjust for parent containers if any */
+  min-height: 100vh;
+  background-color: #f5f5f5;
 }
 
 .form-container {
