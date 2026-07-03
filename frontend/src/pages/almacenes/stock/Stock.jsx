@@ -1,5 +1,6 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import './Stock.css';
+import { getStock, addStockItem } from '../../../services/api.js';
 
 const initialMockData = [
   { id: 1, name: 'Laptop Dell XPS 13', category: 'Electrónica', quantity: 5, status: 'Disponible', tags: ['Nuevo', 'Portátil'] },
@@ -15,6 +16,27 @@ const Stock = () => {
   const [data, setData] = useState(initialMockData);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
+
+  useEffect(() => {
+    // Llamamos a la API para obtener stock
+    getStock()
+      .then(res => {
+        console.log("Stock recuperado del backend:", res);
+        // Si el backend tuviera la base de datos conectada con datos, los cargaríamos:
+        // if (res.data && res.data.length > 0) setData(res.data);
+      })
+      .catch(err => {
+        console.warn("Fallo al conectar con backend para Stock. Cargando mock data offline:", err);
+      });
+  }, []);
+
+  const handleTestAddItem = () => {
+    // Ejemplo de llamada para guardar un nuevo ítem
+    const testItem = { name: "Nuevo Activo", category: "General", quantity: 1, status: "Disponible", tags: [] };
+    addStockItem(testItem)
+      .then(res => console.log("Ítem enviado exitosamente al backend:", res))
+      .catch(err => console.error("Error al enviar ítem al backend:", err));
+  };
 
   const handleSort = (key) => {
     let direction = 'ascending';
@@ -64,7 +86,7 @@ const Stock = () => {
         <div className="header-actions">
           <button className="btn btn-outline">Importar CSV</button>
           <button className="btn btn-outline">Exportar CSV</button>
-          <button className="btn btn-primary">+ Añadir Ítem</button>
+          <button className="btn btn-primary" onClick={handleTestAddItem}>+ Añadir Ítem</button>
         </div>
       </header>
 

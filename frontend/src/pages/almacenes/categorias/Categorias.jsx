@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Categorias.css';
+import { getCategorias, addCategoria } from '../../../services/api.js';
 
 const initialCategories = [
   { id: 1, name: 'Electrónica', description: 'Dispositivos como laptops, monitores, etc.', itemCount: 15 },
@@ -11,11 +12,32 @@ const initialCategories = [
 const Categorias = () => {
   const [categories, setCategories] = useState(initialCategories);
 
+  useEffect(() => {
+    // Obtener categorías desde el backend
+    getCategorias()
+      .then(res => {
+        console.log("Categorías obtenidas del backend:", res);
+        // Si el backend tuviera la base de datos conectada con datos, los cargaríamos:
+        // if (res.data && res.data.length > 0) setCategories(res.data);
+      })
+      .catch(err => {
+        console.warn("Fallo al conectar con backend para Categorías. Cargando mock data offline:", err);
+      });
+  }, []);
+
+  const handleTestAddCategory = () => {
+    // Ejemplo de llamada para guardar una nueva categoría
+    const testCategory = { name: "Nueva Categoría", description: "Descripción de prueba", itemCount: 0 };
+    addCategoria(testCategory)
+      .then(res => console.log("Categoría enviada al backend:", res))
+      .catch(err => console.error("Error al guardar categoría en el backend:", err));
+  };
+
   return (
     <div className="categories-container">
       <header className="categories-header">
         <h2>Categorías de Activos</h2>
-        <button className="btn btn-primary">+ Nueva Categoría</button>
+        <button className="btn btn-primary" onClick={handleTestAddCategory}>+ Nueva Categoría</button>
       </header>
 
       <div className="table-container">
