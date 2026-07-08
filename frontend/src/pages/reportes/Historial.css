@@ -1,0 +1,79 @@
+.historial-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: var(--text-h, #111827);
+  padding: 10px;
+}
+
+.historial-header h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 5px 0;
+}
+
+.table-container {
+  background-color: white;
+  border: 1px solid var(--border, #e5e7eb);
+  border-radius: 8px;
+  overflow-x: auto;
+  box-shadow: var(--shadow, 0 1px 3px rgba(0,0,0,0.1));
+}
+
+.historial-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.historial-table th {
+  padding: 12px 16px;
+  background-color: #f9fafb;
+  border-bottom: 1px solid var(--border, #e5e7eb);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text, #4b5563);
+}
+
+.historial-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border, #e5e7eb);
+  font-size: 14px;
+  color: var(--text-h, #111827);
+  vertical-align: middle;
+}
+
+.fw-500 {
+  font-weight: 500;
+}
+
+.text-muted {
+  color: var(--text, #6b7280);
+}
+
+.action-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.action-cambio {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+.action-creación {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.action-actualización {
+  background-color: #e0f2fe;
+  color: #0369a1;
+}
+
+.action-edición {
+  background-color: #f3f4f6;
+  color: #374151;
+}
