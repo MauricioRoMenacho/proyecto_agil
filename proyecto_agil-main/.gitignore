@@ -6,8 +6,11 @@
 # Scripts SQL de migración (no subir al repo)
 backend/migrations/
 
-.md
-.sql
+# Ignorar todos los archivos markdown y de base de datos
+*.md
+*.sql
+# Excepción: SÍ subir el README principal (Descomenta la siguiente línea si tienes uno)
+!README.md
 
 # Logs
 logs
