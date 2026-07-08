@@ -6,6 +6,9 @@
 # Scripts SQL de migración (no subir al repo)
 backend/migrations/
 
+.md
+.sql
+
 # Logs
 logs
 *.log
