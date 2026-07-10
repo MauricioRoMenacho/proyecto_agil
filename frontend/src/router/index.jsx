@@ -6,6 +6,8 @@ import Stock from "../pages/almacenes/stock/Stock.jsx";
 import Categorias from "../pages/almacenes/categorias/Categorias.jsx";
 import General from "../pages/reportes/General.jsx";
 import Historial from "../pages/reportes/Historial.jsx";
+import Entradas from "../pages/movimientos/entradas/entradas.jsx";
+import Salidas from "../pages/movimientos/salidas/salidas.jsx";
 
 // Lo declaramos con mayúscula inicial como un componente de React real
 export const AppRoutes = () => {
@@ -22,8 +24,8 @@ export const AppRoutes = () => {
                 <Route path="reportes/historial" element={<Historial />} />
                 <Route path="almacenes/stock" element={<Stock />} />
                 <Route path="almacenes/categorias" element={<Categorias />} />
-                <Route path="movimientos/entradas" element={<div style={{ padding: '20px'}}><h2>Entradas</h2>Contenido de entradas en desarrollo</div>}/>
-                <Route path="movimientos/salidas" element={<div style={{ padding: '20px' }}><h2>Salidas</h2><p>Contenido de Salidas en desarrollo.</p></div>} />
+                <Route path="movimientos/entradas" element={<Entradas />} />
+                <Route path="movimientos/salidas" element={<Salidas />} />
             </Route>
 
             {/* Redirección por defecto */}

@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Historial.css';
-
-const historialData = [
-  { id: 1, date: '2026-06-01 10:30', action: 'Cambio de Estado', item: 'Laptop Dell XPS 13', user: 'Admin', details: 'De Disponible a En uso' },
-  { id: 2, date: '2026-06-01 09:15', action: 'Creación', item: 'Silla Ergonómica', user: 'Admin', details: 'Añadido 10 unidades' },
-  { id: 3, date: '2026-05-31 16:45', action: 'Actualización Stock', item: 'Teclado Mecánico Keychron', user: 'Supervisor', details: 'Stock reducido a 0 (Crítico)' },
-  { id: 4, date: '2026-05-30 11:20', action: 'Edición', item: 'Monitor LG 27"', user: 'Admin', details: 'Cambio de categoría a Periféricos' },
-];
+import { getMovimientos } from '../../services/api.js';
 
 const Historial = () => {
+  const [historialData, setHistorialData] = useState([]); // se llena desde el backend
+
+  useEffect(() => {
+    getMovimientos()
+      .then(res => setHistorialData(res)) // datos reales de la BD (HU10)
+      .catch(err => console.warn('Fallo al conectar con backend:', err));
+  }, []);
+
+  // Formatea la fecha (viene como timestamp de PostgreSQL)
+  const formatFecha = (fecha) => {
+    if (!fecha) return '-';
+    const d = new Date(fecha);
+    return isNaN(d) ? fecha : d.toLocaleString();
+  };
+
   return (
     <div className="historial-container">
       <header className="historial-header">
@@ -30,7 +39,7 @@ const Historial = () => {
           <tbody>
             {historialData.map((record) => (
               <tr key={record.id}>
-                <td className="text-muted">{record.date}</td>
+                <td className="text-muted">{formatFecha(record.fecha)}</td>
                 <td>
                   <span className={`action-badge action-${record.action.split(' ')[0].toLowerCase()}`}>
                     {record.action}
@@ -41,6 +50,9 @@ const Historial = () => {
                 <td className="text-muted">{record.details}</td>
               </tr>
             ))}
+            {historialData.length === 0 && (
+              <tr><td colSpan="5" className="text-center">Sin movimientos registrados.</td></tr>
+            )}
           </tbody>
         </table>
       </div>

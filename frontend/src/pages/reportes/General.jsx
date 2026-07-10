@@ -1,28 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './General.css';
+import { getEstadisticas } from '../../services/api.js';
 
-const summaryData = {
-  totalAssets: 154,
-  criticalAssets: 8,
-  totalValue: '$45,200',
-  inUseAssets: 62
-};
+const COLORS = ['#10b981', '#f59e0b', '#3b82f6', '#ef4444']; // colores para el gráfico de estado
 
-const categoryData = [
-  { name: 'Electrónica', total: 60 },
-  { name: 'Periféricos', total: 40 },
-  { name: 'Mobiliario', total: 35 },
-  { name: 'Software', total: 19 },
-];
-
-const statusData = [
-  { name: 'Disponible', value: 92 },
-  { name: 'En uso', value: 62 },
-];
-
-const COLORS = ['#10b981', '#f59e0b']; // Verde para Disponible, Naranja para En uso
+// Estado inicial en cero; los valores reales llegan del backend.
+const resumenInicial = { totalAssets: 0, criticalAssets: 0, totalUnits: 0, inUseAssets: 0 };
 
 const General = () => {
+  const [summary, setSummary] = useState(resumenInicial);
+  const [categoryData, setCategoryData] = useState([]);
+  const [statusData, setStatusData] = useState([]);
+
+  useEffect(() => {
+    getEstadisticas()
+      .then(res => {
+        setSummary(res.summary || resumenInicial);
+        setCategoryData(res.byCategory || []);
+        setStatusData(res.byStatus || []);
+      })
+      .catch(err => console.warn('Fallo al conectar con backend para estadísticas:', err));
+  }, []);
+
+  // Totales para calcular los porcentajes de las barras (evitando dividir entre 0)
+  const totalEstados = statusData.reduce((acc, s) => acc + s.value, 0) || 1;
+  const maxCategoria = Math.max(1, ...categoryData.map(c => c.total));
+
   return (
     <div className="report-container">
       <header className="report-header">
@@ -33,19 +36,19 @@ const General = () => {
       <div className="summary-cards">
         <div className="summary-card">
           <h4>Total Activos</h4>
-          <p className="stat-number">{summaryData.totalAssets}</p>
+          <p className="stat-number">{summary.totalAssets}</p>
         </div>
         <div className="summary-card">
           <h4>En Uso</h4>
-          <p className="stat-number text-orange">{summaryData.inUseAssets}</p>
+          <p className="stat-number text-orange">{summary.inUseAssets}</p>
         </div>
         <div className="summary-card">
           <h4>Nivel Crítico</h4>
-          <p className="stat-number text-red">{summaryData.criticalAssets}</p>
+          <p className="stat-number text-red">{summary.criticalAssets}</p>
         </div>
         <div className="summary-card">
-          <h4>Valor Est.</h4>
-          <p className="stat-number text-blue">{summaryData.totalValue}</p>
+          <h4>Unidades Totales</h4>
+          <p className="stat-number text-blue">{summary.totalUnits}</p>
         </div>
       </div>
 
@@ -54,7 +57,7 @@ const General = () => {
           <h3>Distribución por Estado</h3>
           <div className="simple-pie">
             {statusData.map((item, index) => (
-              <div key={index} className="pie-item" style={{width: `${(item.value / 154) * 100}%`, backgroundColor: COLORS[index]}}>
+              <div key={index} className="pie-item" style={{ width: `${(item.value / totalEstados) * 100}%`, backgroundColor: COLORS[index % COLORS.length] }}>
                 <span className="pie-label">{item.name}: {item.value}</span>
               </div>
             ))}
@@ -68,7 +71,7 @@ const General = () => {
               <div key={index} className="bar-item">
                 <label>{item.name}</label>
                 <div className="bar-container">
-                  <div className="bar" style={{width: `${(item.total / 60) * 100}%`, backgroundColor: '#3b82f6'}}>
+                  <div className="bar" style={{ width: `${(item.total / maxCategoria) * 100}%`, backgroundColor: '#3b82f6' }}>
                     <span className="bar-value">{item.total}</span>
                   </div>
                 </div>

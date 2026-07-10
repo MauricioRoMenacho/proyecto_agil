@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, useLocation, Outlet } from 'react-router-dom';
 import './layout.css';
+import { logoutUser } from '../../services/api.js';
 
 const Layout = () => {
 
@@ -78,9 +79,9 @@ const Layout = () => {
                     </div>
 
 
-                    <NavLink to="/login" className={({ isActive }) => 
-                        isActive 
-                        ? "nav-link logout-link active" 
+                    <NavLink to="/login" onClick={() => logoutUser()} className={({ isActive }) =>
+                        isActive
+                        ? "nav-link logout-link active"
                         :  "nav-link logout-link"
                         }
                     >

@@ -7,19 +7,22 @@ const Login = () => {
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
     const handLoginRedirect = async (e) => {
         e.preventDefault();
-        
+        setError("");
+
         try {
-            // Llamamos a la API del backend
+            // Llamamos a la API del backend. Si es correcto, guarda el token
+            // y entramos a home. Si falla, mostramos el error (no entramos).
             const response = await loginUser(username, password);
             console.log("Login respondido por backend:", response);
+            navigate('/home');
         } catch (error) {
-            console.warn("Fallo al conectar con el backend. Continuando en modo offline:", error);
+            console.warn("Fallo el login:", error);
+            setError(error.message || "No se pudo iniciar sesión.");
         }
-
-        navigate('/home');
     }
 
     useEffect(() => {
@@ -49,6 +52,7 @@ const Login = () => {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
+                    {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
                     <button type="submit" className="login-button">Login</button>
                 </form>
             </div>
