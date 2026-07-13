@@ -1,0 +1,17 @@
+# render.yaml – Blueprint del frontend (Static Site en Render)
+# Sube este archivo en el repo del FRONTEND.
+# Documentación: https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: proyecto-agil-frontend
+    runtime: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_URL
+        sync: false   # Lo pones manualmente: URL del backend en Render
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

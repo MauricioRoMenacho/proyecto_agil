@@ -1,0 +1,30 @@
+# render.yaml – Blueprint del backend (Web Service en Render)
+# Sube este archivo en el repo del BACKEND.
+# Documentación: https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: proyecto-agil-backend
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: proyecto-agil-db
+          property: connectionString
+      - key: DB_SSL
+        value: "true"
+      - key: JWT_SECRET
+        generateValue: true          # Render genera uno automáticamente
+      - key: FRONTEND_URL
+        sync: false                  # Lo pones manualmente después de crear el Static Site
+
+databases:
+  - name: proyecto-agil-db
+    databaseName: proyecto_agil
+    plan: free
